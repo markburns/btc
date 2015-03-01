@@ -26,9 +26,6 @@ var _ = Describe("big math helper functions", func() {
 			Expect(Eq(B("0"), 1)).To(Equal(false))
 			Expect(Eq(B("0"), 0)).To(Equal(true))
 			Expect(Eq(B("1"), 1)).To(Equal(true))
-
-
-
 		})
 	})
 })

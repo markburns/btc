@@ -17,7 +17,6 @@ func(m *MockRandomNumberGenerator) Random() *big.Int{
 	return i
 }
 
-
 var _ = Describe("KeyGenerator", func() {
 	Describe("#NewKeyPair", func() {
 		It("generates a new public and private key", func() {
