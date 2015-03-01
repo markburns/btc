@@ -42,7 +42,7 @@ func (c *Curve) ModularInverse(a *big.Int) *big.Int{
 	low, high  := mod(a, n), dup(n)
 
 	for gt(low,1){
-		ratio = divMod(high, low, n)
+		ratio = div(high, low)
 
 		nm, newNm = sub(hm, mul(lm, ratio)), sub(high, mul(low, ratio))
 		lm, low, hm, high = dup(nm), dup(newNm), dup(lm), dup(low)

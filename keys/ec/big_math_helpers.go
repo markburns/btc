@@ -7,22 +7,19 @@ import (
 func exp(a, b, p *big.Int) *big.Int{
 	return calc().Exp(a, b, p)
 }
+
 func mul(a, b *big.Int) *big.Int{
 	return calc().Mul(a, b)
 }
+
 func sub(a, b *big.Int) *big.Int{
 	return calc().Sub(a, b)
 }
 
-func DivMod(a, b, p *big.Int) *big.Int{
-	a, b, p = dup(a), dup(b), dup(p)
-	return divMod(a,b,p)
-}
-
-func divMod(a, b, p *big.Int) *big.Int{
+func div(a, b *big.Int) *big.Int{
 	r, _ := calc().DivMod(a, b, calc())
 	
-	return mod(r, p)
+	return r
 }
 
 func mod(a, p *big.Int) *big.Int{
