@@ -9,65 +9,28 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-
 var _ = Describe("Curve", func() {
-	Describe("#NewCurve", func() {
-		It("sets up an instance with correct secp256k1 value", func() {
+	expectModularInverse := func(a, b string) {
+		var title = fmt.Sprintf("the inverse of %s to be %s", a, b)
+
+		It(title, func() {
 			curve := NewCurve()
-
-			Expect(curve.Prime().String()).To(Equal("115792089237316195423570985008687907853269984665640564039457584007908834671663"))
+			r := curve.ModularInverse(B(a))
+			Expect(r.String()).To(Equal(b))
 		})
-	})
-	var TestDivMod = func(a,b,p,r string) {
-		bigA, bigB, bigP := B(a), B(b), B(p)
-		result := DivMod(bigA,bigB,bigP)
-		Expect(bigA.String()).To(Equal(a))
-		Expect(bigB.String()).To(Equal(b))
-		Expect(bigP.String()).To(Equal(p))
-		Expect(result.String()).To(Equal(r))
-		return
-		}
+	}
 
-	Describe("#DivMod", func() {
-		It("works", func() {
-			TestDivMod("1", "1", "1", "1")
-		})
-	})
+	Describe("#ModularInverse", func() {
+		expectModularInverse("0", "1")
+		expectModularInverse("1", "1")
+		expectModularInverse("2", "57896044618658097711785492504343953926634992332820282019728792003954417335832")
 
-	Describe("#cmp", func() {
-		It("works", func() {
-			return
-			Expect(Gt(B("1"), 0)).To(Equal(true))
-			Expect(Gt(B("1123123123123891023801928309128309182309812309128309182093281039281321"), 5)).To(Equal(true))
-			Expect(Gt(B("0"), 1)).To(Equal(false))
-			Expect(Gt(B("0"), 0)).To(Equal(false))
-
-			Expect(Lt(B("1"), 0)).To(Equal(false))
-			Expect(Lt(B("1123123123123891023801928309128309182309812309128309182093281039281321"), 5)).To(Equal(false))
-			Expect(Lt(B("0"), 1)).To(Equal(true))
-			Expect(Lt(B("0"), 0)).To(Equal(false))
-
-			Expect(Eq(B("1"), 0)).To(Equal(false))
-			Expect(Eq(B("1123123123123891023801928309128309182309812309128309182093281039281321"), 5)).To(Equal(false))
-			Expect(Eq(B("0"), 1)).To(Equal(false))
-			Expect(Eq(B("0"), 0)).To(Equal(true))
-			Expect(Eq(B("1"), 1)).To(Equal(true))
-
-
-
-		})
-	})
-
-	Describe("#Y", func() {
-		expectResult("0", "1")
-		expectResult("1", "1")
-		expectResult("2", "57896044618658097711785492504343953926634992332820282019728792003954417335832")
-
-		expectResult(
+		expectModularInverse(
 			"103588105881134521297392950363556582805271693099531759694119316285034955766421",
 			"45900550174020825671461307549774270965382867892451705830695672428573753728672",
 		)
 	})
+
 
 	Describe("#AddPoints", func() {
 		It("adds 2 points", func() {
@@ -104,23 +67,12 @@ var _ = Describe("Curve", func() {
 
 			equiv("1", c.GeneratorPoint().X.String(), c.GeneratorPoint().Y.String())
 
-			equiv("3",
+			equiv(
+				"3",
 				"112711660439710606056748659173929673102114977341539408544630613555209775888121",
 				"25583027980570883691656905877401976406448868254816295069919888960541586679410",
 			)
-
 		})
 	})
-
-
 })
 
-func expectResult(a, b string) {
-	var title = fmt.Sprintf("the inverse of %s to be %s", a, b)
-
-	It(title, func() {
-		curve := NewCurve()
-		r := curve.ModularInverse(B(a))
-		Expect(r.String()).To(Equal(b))
-	})
-}

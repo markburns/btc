@@ -3,6 +3,7 @@ package ec
 import (
 	"math/big"
 )
+
 type Point struct {
 	X *big.Int
 	Y *big.Int

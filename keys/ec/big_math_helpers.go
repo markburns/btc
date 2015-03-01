@@ -15,12 +15,14 @@ func sub(a, b *big.Int) *big.Int{
 }
 
 func DivMod(a, b, p *big.Int) *big.Int{
+	a, b, p = dup(a), dup(b), dup(p)
 	return divMod(a,b,p)
 }
 
 func divMod(a, b, p *big.Int) *big.Int{
-	r, _ := calc().DivMod(a, b, dup(p))
-	return r
+	r, _ := calc().DivMod(a, b, calc())
+	
+	return mod(r, p)
 }
 
 func mod(a, p *big.Int) *big.Int{
