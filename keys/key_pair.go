@@ -1,14 +1,14 @@
 package keys
 
-import (
-	"math/big"
-)
-
-type RandomNumber interface {
-	Random() *big.Int
+type KeyPair struct {
+	privateKey *PrivateKey
+	publicKey *PublicKey
 }
 
-type KeyPair struct {
-	PublicKey *big.Int
-	PrivateKey *big.Int
+func (k *KeyPair) PrivateKey() *PrivateKey {
+	return k.privateKey
+}
+
+func (k *KeyPair) PublicKey() *PublicKey {
+	return k.publicKey
 }

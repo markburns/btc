@@ -10,13 +10,14 @@ type RandomNumberGenerator interface {
 }
 
 type KeyGenerator struct {
-	RandomNumberGenerator
-	*Curve
+	randomNumberGenerator RandomNumberGenerator
+	curve *Curve
 }
 
 func (k *KeyGenerator) NewKeyPair() *KeyPair {
-	private := B("1234")
-	public  := B("1234")
-	return &KeyPair{private, public}
+	private := k.randomNumberGenerator.Random()
+	public  := k.curve.Multiply(private)
+
+	return &KeyPair{&PrivateKey{private}, &PublicKey{public}}
 }
 

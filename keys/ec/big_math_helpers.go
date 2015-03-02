@@ -71,3 +71,7 @@ func B(s string) * big.Int{
 
 	return x
 }
+
+func Odd(x *big.Int) bool{
+	return eq(mod(x, B("2")), 1)
+}
