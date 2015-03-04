@@ -52,16 +52,16 @@ func (c *Curve) ModularInverse(a *big.Int) *big.Int{
 }
 
 func (c *Curve) AddPoints(a, b *Point) *Point{
-	lam_add := mod(mul((sub(b.Y, a.Y )), c.ModularInverse(sub(b.X, a.X))), c.p)
+	lamAdd := mod(mul((sub(b.Y, a.Y )), c.ModularInverse(sub(b.X, a.X))), c.p)
 
 	x := mod(
-		sub(mul(lam_add,lam_add), add(a.X,b.X)),
+		sub(mul(lamAdd,lamAdd), add(a.X,b.X)),
 		c.p,
 	)
 
 	y := mod(
 		sub(
-			mul(lam_add, sub(a.X,x)),
+			mul(lamAdd, sub(a.X,x)),
 			a.Y),
 		c.p,
 	)
@@ -70,7 +70,7 @@ func (c *Curve) AddPoints(a, b *Point) *Point{
 }
 
 func (c *Curve) DoublePoint(a *Point) *Point{
-	three_x_squared_plus_a := add(
+	threeXSquaredPlusA := add(
 		mul(
 			B("3"),
 			mul(a.X, a.X),
@@ -78,9 +78,9 @@ func (c *Curve) DoublePoint(a *Point) *Point{
 		c.a,
 	)
 
-	mod_inv_two_y := c.ModularInverse(mul(B("2"), a.Y))
+	modInvTwoY := c.ModularInverse(mul(B("2"), a.Y))
 
-	lam := mod(mul(three_x_squared_plus_a, mod_inv_two_y), c.p)
+	lam := mod(mul(threeXSquaredPlusA, modInvTwoY), c.p)
 
 	x := mod(
 		sub(

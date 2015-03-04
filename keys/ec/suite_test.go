@@ -1,4 +1,4 @@
-package ec_test
+package ec
 
 import (
 	. "github.com/onsi/ginkgo"

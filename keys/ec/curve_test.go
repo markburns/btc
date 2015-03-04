@@ -1,8 +1,6 @@
-package ec_test
+package ec
 
 import (
-	. "btc/keys/ec"
-
 	"fmt"
 
 	. "github.com/onsi/ginkgo"
@@ -66,6 +64,7 @@ var _ = Describe("Curve", func() {
 			}
 
 			equiv("1", c.GeneratorPoint().X.String(), c.GeneratorPoint().Y.String())
+			equiv("1", c.GeneratorPoint().X.String(), "")
 
 			equiv(
 				"3",

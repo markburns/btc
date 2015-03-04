@@ -1,4 +1,4 @@
-package keys
+package main
 
 import (
 	"btc/keys/ec"
@@ -15,24 +15,24 @@ func(m *MockRandomNumberGenerator) Random() *big.Int{
 	return ec.B(dangerousDiceRoll)
 }
 
-var _ = Describe("KeyGenerator", func() {
-	Describe("#NewKeyPair", func() {
-		var pair *KeyPair
+var _ = Describe("Generator", func() {
+	Describe("#NewPair", func() {
+		var pair *Pair
 
 		BeforeEach(func() {
 			random    := &MockRandomNumberGenerator{}
 			curve     := ec.NewCurve()
 
-			generator := &KeyGenerator{random, curve}
-			pair      = generator.NewKeyPair()
+			generator := &Generator{random, curve}
+			pair      = generator.NewPair()
 		})
 
 		It("generates a private key using the random number generator", func() {
-			Expect(pair.PrivateKey().String()).To(Equal("72759466100064397073952777052424474334519735946222029294952053344302920927294"))
+			Expect(pair.Private().String()).To(Equal("72759466100064397073952777052424474334519735946222029294952053344302920927294"))
 		})
 
 		It("generates a public key using the random number generator", func() {
-			Expect(pair.PublicKey().String()).To(Equal("020791dc70b75aa995213244ad3f4886d74d61ccd3ef658243fcad14c9ccee2b0a"))
+			Expect(pair.Public().String()).To(Equal("020791dc70b75aa995213244ad3f4886d74d61ccd3ef658243fcad14c9ccee2b0a"))
 		})
 	})
 })
