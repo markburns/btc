@@ -78,7 +78,7 @@ bx hd-to-address < key-0/public > key-0/address
     "address": "162EjaKLhesmsf9vJz4L2j5eQjLrHLrM2P",
 
     "wif": {
-      "private": "bx hd-to-wif < master-private"
+      "private": "bx hd-to-wif < master-private",
       "private": "L12b4umXNz2jrksaivxBA963tjoZky18sXq4WzoahDww4AFbs47n"
     },
 
