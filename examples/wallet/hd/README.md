@@ -1,6 +1,3 @@
-HD Wallet Genrration
-----------
-
 #Seed
 
 this is the only non-deterministic step in these examples
