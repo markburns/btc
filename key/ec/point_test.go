@@ -8,11 +8,11 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-func p(s string){
+func p(s string) {
 	fmt.Println(Color(s, "blue"))
 }
 
-func satisfiesTheEquation(msg string, c *Point){
+func satisfiesTheEquation(msg string, c *Point) {
 	curve := NewCurve()
 	lhs := mod(mul(c.Y, c.Y), curve.p)
 	rhs := mod(
@@ -46,8 +46,6 @@ var _ = Describe("Point", func() {
 		})
 	})
 
-
-
 	Describe("#PointFromHex", func() {
 		It("generates a point", func() {
 			a := PointFromHex("79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8")
@@ -64,4 +62,3 @@ var _ = Describe("Point", func() {
 		})
 	})
 })
-

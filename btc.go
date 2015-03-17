@@ -1,6 +1,6 @@
 package main
 
-import(
+import (
 	"fmt"
 	// "flag"
 	// "os"
@@ -8,10 +8,10 @@ import(
 	"btc/key/ec"
 )
 
-func main(){
+func main() {
 	kg := key.NewGenerator()
 	//argsWithoutProg := os.Args[1:]
-	
+
 	private, public := kg.NewPair()
 	curve := ec.NewCurve()
 

@@ -1,10 +1,10 @@
 package base58
+
 //Address = Ripemd160(Sha256(PublicKey))
 //public key
 // "19YhkH2ZQHjcDQqMkMabtEEqY7ti4sv8es"
 //private key
 // "KybnQU4c2T65RzZbGn5Mq22HNH7GBoda2dhp1W6m1r94zVno2mpT"
-
 
 import (
 	"btc/key/ec"
@@ -14,10 +14,9 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-
 var _ = Describe("base58", func() {
-	public   := ec.W("232778611149933427379623484630052427045471094092634266730616881027394583545770") // 0x0202a406624211f2abbdc68da3df929f938c3399dd79fac1b51b0e4ad1d26a47aa
-	address  := "14ueonBGyKHdAG4v6dihLEYfQRdjjSSgfTjnsw73AsjCz4Xvada"
+	public := ec.W("232778611149933427379623484630052427045471094092634266730616881027394583545770") // 0x0202a406624211f2abbdc68da3df929f938c3399dd79fac1b51b0e4ad1d26a47aa
+	address := "14ueonBGyKHdAG4v6dihLEYfQRdjjSSgfTjnsw73AsjCz4Xvada"
 	version := 0
 
 	Describe("#Check", func() {
@@ -28,14 +27,14 @@ var _ = Describe("base58", func() {
 		})
 	})
 
-  // bx base58check-decode
-  // 14ueonBGyKHdAG4v6dihLEYfQRdjjSSgfTjnsw73AsjCz4Xvada
-  // wrapper
-  // {
-  //     checksum 3048623411
-  //     payload 0202a406624211f2abbdc68da3df929f938c3399dd79fac1b51b0e4ad1d26a47aa
-  //     version 0
-  // }
+	// bx base58check-decode
+	// 14ueonBGyKHdAG4v6dihLEYfQRdjjSSgfTjnsw73AsjCz4Xvada
+	// wrapper
+	// {
+	//     checksum 3048623411
+	//     payload 0202a406624211f2abbdc68da3df929f938c3399dd79fac1b51b0e4ad1d26a47aa
+	//     version 0
+	// }
 
 	Describe("#Checksum", func() {
 		It("calculates the correct checksum", func() {
@@ -67,6 +66,4 @@ var _ = Describe("base58", func() {
 		})
 	})
 
-
 })
-

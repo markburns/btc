@@ -5,7 +5,6 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-
 var _ = Describe("Curve", func() {
 	Describe("#NewCurve", func() {
 		It("sets up an instance with correct secp256k1 value", func() {

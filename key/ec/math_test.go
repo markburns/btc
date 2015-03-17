@@ -5,7 +5,6 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-
 var _ = Describe("big math helper functions", func() {
 	Describe("#gt", func() {
 		It("", func() {
@@ -36,5 +35,3 @@ var _ = Describe("big math helper functions", func() {
 		})
 	})
 })
-
-

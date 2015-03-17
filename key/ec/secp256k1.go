@@ -1,7 +1,7 @@
 package ec
 
 //http://www.secg.org/SEC2-Ver-1.0.pdf
-func NewSecp256k1() *Curve{
+func NewSecp256k1() *Curve {
 	s := &Curve{}
 	//2**256 - 2**32 - 2**9 - 2**8 - 2**7 -2**6 -2**4 -1
 	//FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F
@@ -20,5 +20,3 @@ func NewSecp256k1() *Curve{
 
 	return s
 }
-
-

@@ -7,8 +7,6 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-
-
 var _ = Describe("Curve", func() {
 
 	expectModularInverse := func(a, b string) {
@@ -24,11 +22,8 @@ var _ = Describe("Curve", func() {
 	Describe("#YFrom", func() {
 		It("calculates the Y value from the corresponding X", func() {
 			curve := NewCurve()
-			result := curve.YFrom(W("1"))
-			//y^2 = x^3 + 7
-			//2^2 = 2^3 + 7
-			//2^2 = 2^3 + 7
-			Expect(result.String()).To(Equal("2"))
+			result := curve.YFrom(curve.GeneratorPoint().X)
+			Expect(result.String()).To(Equal(curve.GeneratorPoint().Y.String()))
 		})
 	})
 
@@ -51,11 +46,10 @@ var _ = Describe("Curve", func() {
 			a := PointFromHex("79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8")
 			b := PointFromHex("79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8")
 			c := PointFromHex("79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8")
-			result := curve.AddPoints(a,b)
+			result := curve.AddPoints(a, b)
 			Expect(result.X.String()).To(Equal(c.X.String()))
 			Expect(result.Y.String()).To(Equal(c.Y.String()))
 
 		})
 	})
 })
-
