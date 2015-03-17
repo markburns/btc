@@ -51,46 +51,6 @@ bx hd-to-address < key-0/public > key-0/address
 
 ```
 
-Base58 Check Prefixes
----------------
-
-Hex          | (Dec)        | base58 | details
-----------------------------------------------------
-0x000        | (  0)        |      1 | bitcoin address
-0x005        | (  5)        |      3 | pay to script hash address
-0x06F        | (111)        |   m, n | test net address
-0x080        | (128)        |  5,K,L | private key
-0x142        | (322)        |  6P    | BIP38 Extended private key
-0x0488B21E0  | (76,067,358) |  xpub  | BIP32 extended public key
-
-
-Math
-  Add(Wifable, Wifable)
-  Sub(Wifable, Wifable)
-  Mod(Wifable, Wifable)
-  Div(Wifable, Wifable)
-  Exp(Wifable, Wifable)
-
-
-Wif
- Wifable
-    big.Int
-
-  NewWif(Wifable) Wif
-    base58
-      Encode(Wifable) Wif
-
-Key
-  Public
-    Wif //Compressed
-    Full       Wif
-  Private
-    Wif //Compressed
-
-Address
-  Wif
-
-
 private key KybnQU4c2T65RzZbGn5Mq22HNH7GBoda2dhp1W6m1r94zVno2mpT
 
             payload     0x4707a525e75850b2a6018d28dbe3cc9ed688c5b52cfd714c1045ffed0286bb5401
