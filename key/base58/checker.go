@@ -9,11 +9,11 @@ import(
 const alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 
 type Checker struct{
-	value *ec.Wif
+	value *big.Int
 	version int
 }
 
-func Check(b *ec.Wif, version int) string{
+func Check(b *big.Int, version int) string{
 	encoder := &Checker{b, version}
 	return encoder.Check()
 }

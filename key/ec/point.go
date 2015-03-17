@@ -3,11 +3,12 @@ package ec
 import (
 	"encoding/hex"
 	"fmt"
+	"math/big"
 )
 
 type Point struct {
-	X *Wif
-	Y *Wif
+	X *big.Int
+	Y *big.Int
 }
 
 func PointFromString(s string) *Point{
@@ -31,14 +32,14 @@ func splitHex(s string) (a, b string){
 
 func PointFromHex(s string) *Point{
 	a,b := splitHex(s)
-	x := W(W("0").SetBytes(fromHexString(a)))
-	y := W(W("0").SetBytes(fromHexString(b)))
+	x := W("0").SetBytes(fromHexString(a))
+	y := W("0").SetBytes(fromHexString(b))
 
 	return &Point{x, y}
 }
 
-func (p *Point) Wifable() *Wif{
-	return W(p.Y)
+func (p *Point) BigInt() *big.Int{
+	return p.Y
 }
 
 func (p *Point) XHex() string{

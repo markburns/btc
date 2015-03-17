@@ -2,41 +2,52 @@ package ec
 
 import (
 	"github.com/cznic/mathutil"
+	"math/big"
 )
 
 type Curve struct {
-	p *Wif // prime
-	a *Wif // curve param
-	b *Wif // curve param
+	p *big.Int // prime
+	a *big.Int // curve param
+	b *big.Int // curve param
 	g *Point   // generator point
-	n *Wif // number of points
-	h *Wif // cofactor
+	n *big.Int // number of points
+	h *big.Int // cofactor
 }
 
 func NewCurve() *Curve{
 	return NewSecp256k1()
 }
 
-func (c *Curve) Prime() *Wif{
+// convert a string to *big.Int panics with an invalid value.
+// Ideally this would exist only as a method in an internal package, but they
+// don't exist in go yet. Hence this is public, but not intended for public use.
+func W(s string) *big.Int{
+	result, success := new(big.Int).SetString(s, 10)
+
+	if !success{ panic("Invalid value for big.Int") }
+	return result
+}
+
+func (c *Curve) Prime() *big.Int{
 	return dup(c.p)
 }
 func (c *Curve) GeneratorPoint() *Point{
 	return &Point{dup(c.g.X), dup(c.g.Y)}
 }
 
-func (c *Curve) Mod(w *Wif) *Wif{
+func (c *Curve) Mod(w *big.Int) *big.Int{
 	return mod(w, c.p)
 }
 
-func (c *Curve) ModularInverse(a *Wif) *Wif{
+func (c *Curve) ModularInverse(a *big.Int) *big.Int{
 	return modinv(a, c.p)
 }
-func (c *Curve) YFrom(x *Wif) *Wif{
+func (c *Curve) YFrom(x *big.Int) *big.Int{
 	//(y^2)% p ==(x^3 + 7)% p
 	ySquared := add( exp(x, W("3"), c.p), W("7"))
 
-	result := mod(ySquared, c.p).BigInt()
-	return W(mathutil.SqrtBig(result))
+	result := mod(ySquared, c.p)
+	return mathutil.SqrtBig(result)
 }
 
 func (c *Curve) AddPoints(a, b *Point) *Point{
@@ -89,7 +100,7 @@ func (c *Curve) AddPoints(a, b *Point) *Point{
 		return &Point{x,y}
 	}
 
-	func (c *Curve) Multiply(x *Wif) *Point{
+	func (c *Curve) Multiply(x *big.Int) *Point{
 		q := c.GeneratorPoint()
 
 		length := x.BitLen()

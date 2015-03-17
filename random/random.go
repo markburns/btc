@@ -16,7 +16,7 @@ type System struct {
 func (s System) Random() (n *big.Int){
 	curve := ec.NewSecp256k1()
 
-	n, _ =  rand.Int(rand.Reader, curve.Prime().BigInt())
+	n, _ =  rand.Int(rand.Reader, curve.Prime())
 
 	return n
 }

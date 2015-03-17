@@ -11,7 +11,7 @@ type Private struct{
 }
 
 func(p *Private) Hex() string{
-	return "00" + hex.EncodeToString(p.n.Bytes())
+	return hex.EncodeToString(p.n.Bytes())
 }
 
 func (p *Private) String() string{
