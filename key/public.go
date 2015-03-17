@@ -25,8 +25,12 @@ func(p *Public) BigInt() *big.Int{
 	return p.y()
 }
 
+func(p *Public) Version() int{
+	return 0
+}
+
 func(p *Public) Base58() string{
-	return base58.Check(p.key.Y)
+	return base58.Check(p.key.Y, p.Version())
 }
 
 func(p *Public) y() *big.Int{

@@ -32,7 +32,7 @@ func(a *Checker) Check() string{
 
 	i := big.NewInt(0).SetBytes(b)
 	bt := EncodeBig(i)
-	return "1" + string(bt)
+	return string(bt)
 }
 
 func EncodeBig(input *big.Int) []byte {
