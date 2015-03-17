@@ -2,12 +2,12 @@ package key
 
 import (
 	"encoding/hex"
-	"btc/key/ec"
+	"math/big"
 	"btc/key/base58"
 )
 
 type Private struct{
-  n *ec.Wif
+  n *big.Int
 }
 
 func(p *Private) Hex() string{

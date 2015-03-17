@@ -40,7 +40,7 @@ var _ = Describe("Point", func() {
 	Describe("#fromHexString", func() {
 		It("creates a byte array correctly", func() {
 			result := fromHexString("01")
-			x := W(W("0").SetBytes(result))
+			x := W("0").SetBytes(result)
 			Expect(x).To(Equal(W("1")))
 
 		})

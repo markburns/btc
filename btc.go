@@ -17,7 +17,7 @@ func main(){
 
 	fmt.Println("GeneratorPoint: x ", curve.GeneratorPoint().XHex())
 	fmt.Println("GeneratorPoint: y ", curve.GeneratorPoint().YHex())
-	fmt.Println("Prime: ", curve.Prime().BigInt())
+	fmt.Println("Prime: ", curve.Prime())
 
 	fmt.Println("Private key: ", private.Base58())
 	fmt.Println("             ", private.Hex())

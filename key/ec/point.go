@@ -38,10 +38,6 @@ func PointFromHex(s string) *Point{
 	return &Point{x, y}
 }
 
-func (p *Point) BigInt() *big.Int{
-	return p.Y
-}
-
 func (p *Point) XHex() string{
 	return ToHex(p.X.Bytes())
 }

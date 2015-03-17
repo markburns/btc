@@ -57,25 +57,5 @@ var _ = Describe("Curve", func() {
 
 		})
 	})
-
-	Describe("#DoublePoint", func() {
-		It("double a point", func() {
-			a := &Point{W("3"), W("5")}
-			c := NewCurve()
-			x := "19684655170343753222007067451476944335055897393158895886707789281344501894184"
-			y := "51064311353656442181794804388831367363292063237547488741400794547487796090203"
-
-			Expect(c.DoublePoint(a).X.String()).To(Equal(x))
-			Expect(c.DoublePoint(a).Y.String()).To(Equal(y))
-		})
-	})
-
-	Describe("#Multiply", func() {
-		It("Multiplies the generator point by a value", func() {
-			//c := NewCurve()
-
-			//c.Multiply(W(a))
-		})
-	})
 })
 

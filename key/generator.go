@@ -16,7 +16,7 @@ func NewGenerator() *Generator {
 }
 
 func (k *Generator) NewPair() (*Private, *Public) {
-	private := W(k.rn.Random())
+	private := k.rn.Random()
 	public  := k.curve.Multiply(private)
 
 	return &Private{private}, &Public{public}

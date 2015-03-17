@@ -14,7 +14,7 @@ var _ = Describe("Private", func() {
 
 	Describe("#Hex", func() {
 		It("has the correct value", func() {
-			Expect(private.Hex()).To(Equal("00a0dc65ffca799873cbea0ac274015b9526505daaaed385155425f7337704883e"))
+			Expect(private.Hex()).To(Equal("a0dc65ffca799873cbea0ac274015b9526505daaaed385155425f7337704883e"))
 		})
 	})
 	Describe("#Base58", func() {

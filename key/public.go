@@ -14,15 +14,11 @@ type Public struct{
 func(p *Public) Hex() string{
 	hex := p.toHex(p.y().Bytes())
 
-	if(Odd(W(p.y()))){
+	if(Odd(p.y())){
 		return "03" + hex
 	}
 
 	return "02" + hex
-}
-
-func(p *Public) BigInt() *big.Int{
-	return p.y()
 }
 
 func(p *Public) Version() int{
@@ -34,11 +30,11 @@ func(p *Public) Base58() string{
 }
 
 func(p *Public) y() *big.Int{
-	return p.key.Y.BigInt()
+	return p.key.Y
 }
 
 func(p *Public) x() *big.Int{
-	return p.key.X.BigInt()
+	return p.key.X
 }
 
 func (p *Public) String() string{
