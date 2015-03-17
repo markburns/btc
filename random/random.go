@@ -3,7 +3,7 @@ package random
 import (
 	"crypto/rand"
 	"math/big"
-	"btc/keys/ec"
+	"btc/key/ec"
 )
 
 type Random interface {
@@ -16,7 +16,7 @@ type System struct {
 func (s System) Random() (n *big.Int){
 	curve := ec.NewSecp256k1()
 
-	n, _ = rand.Int(rand.Reader, curve.Prime())
+	n, _ =  rand.Int(rand.Reader, curve.Prime().BigInt())
 
 	return n
 }

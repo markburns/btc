@@ -1,7 +1,7 @@
-package keys
+package key
 
 import (
-	. "btc/keys/ec"
+	. "btc/key/ec"
 	"btc/random"
 )
 
@@ -15,11 +15,11 @@ func NewGenerator() *Generator {
 	return &Generator{random, NewCurve()}
 }
 
-func (k *Generator) NewPair() *Pair {
-	private := k.rn.Random()
+func (k *Generator) NewPair() (*Private, *Public) {
+	private := W(k.rn.Random())
 	public  := k.curve.Multiply(private)
 
-	return &Pair{&Private{private}, &Public{public}}
+	return &Private{private}, &Public{public}
 }
 
 
