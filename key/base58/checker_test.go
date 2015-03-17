@@ -18,10 +18,12 @@ import (
 var _ = Describe("base58", func() {
 	public   := ec.W("232778611149933427379623484630052427045471094092634266730616881027394583545770") // 0x0202a406624211f2abbdc68da3df929f938c3399dd79fac1b51b0e4ad1d26a47aa
 	address  := "14ueonBGyKHdAG4v6dihLEYfQRdjjSSgfTjnsw73AsjCz4Xvada"
+	version := 0
 
 	Describe("#Check", func() {
 		It("encodes the address as base58 with checksum", func() {
-			result := Check(public)
+			result := Check(public, version)
+
 			Expect(result).To(Equal(address))
 		})
 	})
@@ -37,7 +39,7 @@ var _ = Describe("base58", func() {
 
 	Describe("#Checksum", func() {
 		It("calculates the correct checksum", func() {
-			checker := Checker{public}
+			checker := Checker{public, version}
 			sum := checker.IntChecksum()
 
 			Expect(sum).To(Equal(3048623411))

@@ -10,10 +10,11 @@ const alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 
 type Checker struct{
 	value *ec.Wif
+	version int
 }
 
-func Check(b *ec.Wif) string{
-	encoder := &Checker{b}
+func Check(b *ec.Wif, version int) string{
+	encoder := &Checker{b, version}
 	return encoder.Check()
 }
 
@@ -25,7 +26,7 @@ func p(msg string, b []byte){
 
 func(a *Checker) Check() string{
 	b := make([]byte, 0)
-	b = append(b, a.versionBytePrefix())
+	b = append(b, byte(a.version))
 	b = append(b, a.payload()...)
 	b = append(b, a.Checksum()...)
 
@@ -54,13 +55,10 @@ func EncodeBig(input *big.Int) []byte {
 	return out
 }
 
-func (a *Checker) versionBytePrefix() byte{
-	return 0x00
-}
-
 func(a *Checker) Checksum() []byte{
 	b := make([]byte, 0)
-	b = append(b, a.versionBytePrefix())
+	b = append(b, byte(a.version))
+	fmt.Println(byte(a.version))
 	b = append(b, a.payload()...)
 
 	b = DoubleSha(b)
