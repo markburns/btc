@@ -12,6 +12,7 @@ type Point struct {
 }
 
 func PointFromString(s string) *Point {
+	s = s[2:]
 	halfWay := len(s) / 2
 
 	x := W(s[:halfWay])
@@ -29,13 +30,6 @@ func splitHex(s string) (a, b string) {
 	return a, b
 }
 
-func PointFromHex(s string) *Point {
-	a, b := splitHex(s)
-	x := W("0").SetBytes(fromHexString(a))
-	y := W("0").SetBytes(fromHexString(b))
-
-	return &Point{x, y}
-}
 
 func (p *Point) XHex() string {
 	return ToHex(p.X.Bytes())

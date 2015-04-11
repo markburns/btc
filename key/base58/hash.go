@@ -6,18 +6,14 @@ import (
 )
 
 func Hash160(b []byte) []byte {
-	return Ripemd160(Sha256(b))
+	result := Ripemd160(Sha256(b))
+	return reverseBytes(DropLeadingZeroes(reverseBytes(result), false))
 }
 
 func DoubleSha(b []byte) []byte {
 	return Sha256(Sha256(b))
 }
-func ReverseBytes(p []byte) []byte {
-	for i, j := 0, len(p)-1; i < j; i, j = i+1, j-1 {
-		p[i], p[j] = p[j], p[i]
-	}
-	return p
-}
+
 func Sha256(b []byte) []byte {
 	a := sha256.Sum256(b)
 

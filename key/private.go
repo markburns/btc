@@ -23,5 +23,5 @@ func (p *Private) Version() int{
 }
 
 func(p *Private) Base58() string{
-	return base58.Check(p.n, p.Version())
+	return base58.Check(p.n.Bytes(), p.Version())
 }

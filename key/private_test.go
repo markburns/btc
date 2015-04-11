@@ -21,7 +21,9 @@ var _ = Describe("Private", func() {
 		It("has the correct value", func() {
 			// bx base58check-encode a0dc65ffca799873cbea0ac274015b9526505daaaed385155425f7337704883e --version 128
 			// 5K38ZKiJBMmsk9iLcaakHfMa6FoZpLKpmhyo9aZnjossPc49J7e
-			Expect(private.Base58()).To(Equal("5K38ZKiJBMmsk9iLcaakHfMa6FoZpLKpmhyo9aZnjossPc49J7e"))
+			expected := "5K38ZKiJBMmsk9iLcaakHfMa6FoZpLKpmhyo9aZnjossPc49J7e"
+			Expect(len(private.Base58())).To(Equal(len(expected)))
+			Expect(private.Base58()).To(Equal(expected))
 		})
 	})
 })

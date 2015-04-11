@@ -1,7 +1,7 @@
 package ec
 
 import (
-	"github.com/cznic/mathutil"
+	//"github.com/cznic/mathutil"
 	"math/big"
 )
 
@@ -43,13 +43,6 @@ func (c *Curve) Mod(w *big.Int) *big.Int {
 
 func (c *Curve) ModularInverse(a *big.Int) *big.Int {
 	return modinv(a, c.p)
-}
-func (c *Curve) YFrom(x *big.Int) *big.Int {
-	//(y^2)% p ==(x^3 + 7)% p
-	ySquared := add(exp(x, W("3"), c.p), W("7"))
-
-	result := mod(ySquared, c.p)
-	return mathutil.SqrtBig(result)
 }
 
 func (c *Curve) AddPoints(a, b *Point) *Point {

@@ -1,42 +1,67 @@
 package base58
 
 import (
-	"btc/key/ec"
-	"fmt"
 	"math"
 	"math/big"
+
+	//"fmt"
 )
 
 const alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 
 type Checker struct {
-	value   *big.Int
+	payload []byte
 	version int
 }
 
-func Check(b *big.Int, version int) string {
+func Check(b []byte, version int) string {
 	encoder := &Checker{b, version}
 	return encoder.Check()
-}
-
-func p(msg string, b []byte) {
-	s := ec.ToHex(b)
-
-	fmt.Println(msg, s)
 }
 
 func (a *Checker) Check() string {
 	b := make([]byte, 0)
 	b = append(b, byte(a.version))
-	b = append(b, a.payload()...)
+	b = append(b, a.payload...)
 	b = append(b, a.Checksum()...)
 
 	i := big.NewInt(0).SetBytes(b)
-	bt := EncodeBig(i)
-	return string(bt)
+	return bigIntToBase58(i, b)
 }
 
-func EncodeBig(input *big.Int) []byte {
+func DropLeadingZeroes(b []byte, pad bool) []byte {
+	output := []byte{}
+	leadingZero := true
+	index := 0
+
+	for i := 0; i < len(b); i++{
+		if(!leadingZero){
+			output = append(output, b[i])
+			index += 1
+		}else{
+			if(byte(b[i]) != byte(0)){
+				output = append(output, b[i])
+				leadingZero = false
+			}
+		}
+	}
+	if pad{
+		if(len(output) % 2 == 1){
+			return append([]byte{0}, output...)
+		}
+	}
+
+	return output
+}
+
+func reverseBytes(b []byte) []byte {
+	for i, j := 0, len(b)-1; i < j; i, j = i+1, j-1 {
+		b[i], b[j] = b[j], b[i]
+	}
+	return b
+}
+
+func encodeBig(input *big.Int) []byte {
 	out := make([]byte, 0)
 	n := big.NewInt(0)
 	n.Set(input)
@@ -49,18 +74,32 @@ func EncodeBig(input *big.Int) []byte {
 		out = append(out, alphabet[mod.Int64()])
 	}
 
-	for i, j := 0, len(out)-1; i < j; i, j = i+1, j-1 {
-		out[i], out[j] = out[j], out[i]
+	return reverseBytes(out)
+}
+
+//from https://github.com/ThePiachu/Split-Vanity-Miner-Golang/blob/master/src/pkg/mymath/base58.go
+//MIT licence https://github.com/ThePiachu/Split-Vanity-Miner-Golang/blob/master/LICENSE
+func bigIntToBase58(input *big.Int, val []byte) string{
+	tmp:= encodeBig(input)//encoding of the number without zeroes in front
+	
+	//looking for zeros at the beginning
+	i:=0
+	for i=0; val[i]==0 && i<len(val); i++{
 	}
 
-	return out
+	answer:=""
+	for j:=0 ; j < i; j++{
+		answer += "1"
+	}
+	answer+=string(tmp)//concatenates
+
+	return answer
 }
 
 func (a *Checker) Checksum() []byte {
 	b := make([]byte, 0)
 	b = append(b, byte(a.version))
-	fmt.Println(byte(a.version))
-	b = append(b, a.payload()...)
+	b = append(b, DropLeadingZeroes(a.payload, false)...)
 
 	b = DoubleSha(b)
 
@@ -68,10 +107,6 @@ func (a *Checker) Checksum() []byte {
 }
 func (a *Checker) IntChecksum() int {
 	return calculateSum(a.Checksum())
-}
-
-func (a *Checker) payload() []byte {
-	return a.value.Bytes()
 }
 
 func calculateSum(result []byte) int {
